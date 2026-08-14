@@ -11,13 +11,68 @@ export type Project = {
 };
 
 export const profile = {
-  name: "YOUR NAME",
+  name: "谢华林",
   role: "AI 设计师 / 三维设计师 / 视觉设计师 / 电商美工",
   intro:
-    "我专注于品牌视觉、AIGC 与三维影像之间的连接。通过策略、审美与新技术，把抽象的品牌想法转译成清晰、有记忆点的视觉体验。",
+    "拥有三年电商设计工作经验，专注于 3C 与母婴类产品的建模、渲染和电商视觉设计，并将 AIGC 融入视频创作、场景生成与后期制作流程。",
   email: "hello@yourname.design",
-  location: "中国 · 可远程合作",
+  location: "深圳 · 宝安",
+  age: "25 岁",
+  gender: "男",
+  occupation: "电商设计",
+  wechat: "18806083508",
 };
+
+export const aboutHighlights = [
+  {
+    no: "01",
+    title: "设计工具",
+    description: "熟练使用 Cinema 4D、KeyShot、Photoshop、Illustrator、剪映等设计软件。",
+  },
+  {
+    no: "02",
+    title: "AI 工作流",
+    description: "持续将 ChatGPT、Codex、即梦、Nano Banana、LiblibAI 等 AI 工具融入电商设计流程。",
+  },
+  {
+    no: "03",
+    title: "全流程能力",
+    description: "覆盖产品建模与渲染、主图详情、摄影、视频创作与剪辑、包装及说明书排版，具备产品全案策划与执行能力。",
+  },
+];
+
+export const experiences = [
+  {
+    period: "2026.05 — 2026.08",
+    company: "乾程智能科技有限公司",
+    role: "电商视觉设计",
+    details: [
+      "负责 Amazon、TikTok 等渠道的电商视觉设计。",
+      "完成擦窗机器人主副图、A+ 页面、画册、彩盒、产品日常使用视频、AI 视频及外包装设计。",
+      "建立成熟的 AI 辅助作图流程，协同使用 ChatGPT、Codex、即梦、Nano Banana、LiblibAI、Photoshop、Cinema 4D、Illustrator 与 Rhino。",
+    ],
+  },
+  {
+    period: "2025.03 — 2026.04",
+    company: "沣标电子商务公司",
+    role: "电商视觉设计",
+    details: [
+      "负责 Amazon、印尼电商平台、淘宝、京东及拼多多的店铺页面综合设计。",
+      "负责锂电池、相机电池、充电宝、相机充电器等摄影周边产品的渲染、主图详情排版、包装及说明书设计。",
+      "使用即梦、LiblibAI 与 Nano Banana 辅助灵感提取、场景及模特生成和渲染细节修改，并完成 AI 视频生成与剪辑。",
+    ],
+  },
+  {
+    period: "2023.05 — 2025.02",
+    company: "帝尔特企业有限公司",
+    role: "电商视觉设计",
+    details: [
+      "负责淘宝、京东、拼多多及 Amazon 等店铺的页面综合设计。",
+      "重点负责产品渲染与产品视觉升级，以提升商品点击率。",
+      "使用 Stable Diffusion 与 LiblibAI 完成场景图、模特生成及渲染细节优化，帮助团队提升效率、降低制作成本。",
+    ],
+  },
+];
 
 export type SkillTool = {
   name: string;
@@ -39,9 +94,9 @@ export const skillTools: SkillTool[] = [
 ];
 
 export const stats = [
-  { value: "08+", label: "YEARS EXPERIENCE", zh: "年设计经验" },
-  { value: "60+", label: "PROJECTS COMPLETED", zh: "完成项目" },
-  { value: "18", label: "BRANDS COLLABORATED", zh: "合作品牌" },
+  { value: "03+", label: "YEARS EXPERIENCE", zh: "年电商设计经验" },
+  { value: "03", label: "WORK EXPERIENCES", zh: "段工作经历" },
+  { value: "08+", label: "CREATIVE TOOLS", zh: "项创作工具" },
 ];
 
 export const projects: Project[] = [
