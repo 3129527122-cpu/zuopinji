@@ -40,6 +40,17 @@ yarn-error.log*
 /outputs/
 /work/
 
+# Local logs, archives, and unoptimized work-image sources
+.codex-dev.*.log
+/GitHub上传版/
+/备份/
+/public/work/**/*.jpg
+/public/work/**/*.jpeg
+/public/work/**/*.png
+/public/work/**/*.jfif
+/public/work/product-posters/poster-11.gif
+/public/work/product-posters/poster-12.gif
+
 # local design sources and generated intermediates
 /素材/
 /public/skills-source/

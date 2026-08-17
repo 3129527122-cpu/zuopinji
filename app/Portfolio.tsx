@@ -1,28 +1,52 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { aboutHighlights, experiences, profile, projects, skillTools, strengths } from "../data/portfolio";
+import { useEffect, useState } from "react";
+import { aboutHighlights, experiences, profile, skillTools } from "../data/portfolio";
 
-const artwork = "/images/portfolio-master-3c-v2.webp";
+const optimizedWorkImage = (src: string) =>
+  src.replace(/\.(?:jpe?g|png)$/i, ".webp");
 
 const serviceNavigation = [
   "主图设计",
-  "AI赋能电商",
   "产品建模",
+  "AI赋能电商",
   "三维渲染",
   "产品海报",
   "AI视频",
+  "活动与首页设计",
   "线下包装、彩盒与说明书",
-  "首页设计",
   "详情页设计",
 ];
 
-const mainImageSubNavigation = ["电池", "快消 3C", "清洁机器", "母婴产品"];
+const serviceSectionIds = [
+  "work-main-images",
+  "work-product-modeling",
+  "work-ai-commerce",
+  "work-3d-rendering",
+  "work-product-posters",
+  "work-ai-video",
+  "work-campaign-homepage-design",
+  "work-offline-packaging",
+  "work-detail-page-design",
+];
+
+const mainImageSubNavigation = ["电池", "排插", "数据线与充电宝", "清洁机器", "母婴产品"];
 const subServiceIds: Record<string, string> = {
   "电池": "work-battery",
-  "快消 3C": "work-fast-3c",
+  "排插": "work-fast-3c",
+  "数据线与充电宝": "work-cables-powerbanks",
   "清洁机器": "work-cleaning",
   "母婴产品": "work-maternal",
+};
+
+const detailPageSubNavigation = ["充电头", "擦窗机器人", "相机电池", "充电宝", "扩展坞", "母婴产品"];
+const detailPageSubServiceIds: Record<string, string> = {
+  "充电头": "work-detail-charger",
+  "擦窗机器人": "work-detail-window-cleaner",
+  "相机电池": "work-detail-camera-battery",
+  "充电宝": "work-detail-power-bank",
+  "扩展坞": "work-detail-dock",
+  "母婴产品": "work-detail-maternal",
 };
 
 const batteryMainImages = Array.from({ length: 13 }, (_, index) => {
@@ -45,9 +69,24 @@ const fastMoving3cImages = Array.from({ length: 12 }, (_, index) => {
   return {
     id: `fast-3c-${number}`,
     src: `/work/main-images/fast-moving-3c/fast-3c-${number}.jpg`,
-    title: `快消 3C 主图 ${number}`,
+    title: `排插主图 ${number}`,
   };
 });
+
+const cablePowerbankImages = [
+  { id: "cable-01", src: "/work/main-images/cables-powerbanks/cable-01.jpg", title: "数据线与充电宝主图 01" },
+  { id: "cable-02", src: "/work/main-images/cables-powerbanks/cable-02.jpg", title: "数据线与充电宝主图 02" },
+  { id: "cable-03", src: "/work/main-images/cables-powerbanks/cable-03.jpg", title: "数据线与充电宝主图 03" },
+  { id: "cable-04", src: "/work/main-images/cables-powerbanks/cable-04.png", title: "数据线与充电宝主图 04" },
+  { id: "cable-05", src: "/work/main-images/cables-powerbanks/cable-05.png", title: "数据线与充电宝主图 05" },
+  { id: "cable-06", src: "/work/main-images/cables-powerbanks/cable-06.png", title: "数据线与充电宝主图 06" },
+  { id: "powerbank-01", src: "/work/main-images/cables-powerbanks/powerbank-01.gif", title: "充电宝主图 01" },
+  { id: "powerbank-02", src: "/work/main-images/cables-powerbanks/powerbank-02.jpg", title: "充电宝主图 02" },
+  { id: "powerbank-03", src: "/work/main-images/cables-powerbanks/powerbank-03.jpg", title: "充电宝主图 03" },
+  { id: "powerbank-04", src: "/work/main-images/cables-powerbanks/powerbank-04.jpg", title: "充电宝主图 04" },
+  { id: "powerbank-06", src: "/work/main-images/cables-powerbanks/powerbank-06.jpg", title: "充电宝主图 06" },
+  { id: "powerbank-07", src: "/work/main-images/cables-powerbanks/powerbank-07.jpg", title: "充电宝主图 07" },
+];
 
 const cleaningRobotImages = [
   ...Array.from({ length: 18 }, (_, index) => {
@@ -63,6 +102,147 @@ const cleaningRobotImages = [
   { id: "cleaning-13", src: "/work/main-images/cleaning-robot/cleaning-13.jpg", title: "清洁机器主图 13" },
 ];
 
+const maternalProductImages = [
+  { id: "maternal-01", src: "/work/main-images/maternal/maternal-01.jpg", title: "母婴产品主图 01" },
+  { id: "maternal-02", src: "/work/main-images/maternal/maternal-02.png", title: "母婴产品主图 02" },
+  { id: "maternal-03", src: "/work/main-images/maternal/maternal-03.jpg", title: "母婴产品主图 03" },
+  { id: "maternal-04", src: "/work/main-images/maternal/maternal-04.jpg", title: "母婴产品主图 04" },
+  { id: "maternal-05", src: "/work/main-images/maternal/maternal-05.jpg", title: "母婴产品主图 05" },
+  { id: "maternal-06", src: "/work/main-images/maternal/maternal-06.jpg", title: "母婴产品主图 06" },
+  { id: "maternal-07", src: "/work/main-images/maternal/maternal-07.jpg", title: "母婴产品主图 07" },
+  { id: "maternal-08", src: "/work/main-images/maternal/maternal-08.jpg", title: "母婴产品主图 08" },
+  { id: "maternal-09", src: "/work/main-images/maternal/maternal-09.jpg", title: "母婴产品主图 09" },
+  { id: "maternal-10", src: "/work/main-images/maternal/maternal-10.jpg", title: "母婴产品英文主图 01" },
+  { id: "maternal-11", src: "/work/main-images/maternal/maternal-11.jpg", title: "母婴产品英文主图 02" },
+  { id: "maternal-12", src: "/work/main-images/maternal/maternal-12.jpg", title: "母婴产品英文主图 03" },
+];
+
+const productModelingImages = [
+  { id: "modeling-01", src: "/work/product-modeling/modeling-01.jpg", title: "Product modeling render 01" },
+  { id: "modeling-02", src: "/work/product-modeling/modeling-02.jpg", title: "Product modeling wireframe 01" },
+  { id: "modeling-03", src: "/work/product-modeling/modeling-03.jpg", title: "Product modeling render 02" },
+  { id: "modeling-04", src: "/work/product-modeling/modeling-04.jpg", title: "Product modeling wireframe 02" },
+  { id: "modeling-05", src: "/work/product-modeling/modeling-05.jpg", title: "Product modeling render 03" },
+  { id: "modeling-06", src: "/work/product-modeling/modeling-06.png", title: "Product modeling wireframe 03" },
+  { id: "modeling-07", src: "/work/product-modeling/modeling-07.jpg", title: "Product modeling render 04" },
+  { id: "modeling-08", src: "/work/product-modeling/modeling-08.jpg", title: "Product modeling wireframe 04" },
+  { id: "modeling-09", src: "/work/product-modeling/modeling-09.png", title: "Product modeling render 05" },
+  { id: "modeling-10", src: "/work/product-modeling/modeling-10.jpg", title: "Product modeling wireframe 05" },
+  { id: "modeling-11", src: "/work/product-modeling/modeling-11.png", title: "Product modeling render 06" },
+  { id: "modeling-12", src: "/work/product-modeling/modeling-12.jpg", title: "Product modeling wireframe 06" },
+];
+
+const aiCommerceImages = [
+  { id: "ai-commerce-01", src: "/work/ai-commerce/ai-commerce-01.png", title: "AI赋能电商 01" },
+  { id: "ai-commerce-02", src: "/work/ai-commerce/ai-commerce-02.png", title: "AI赋能电商 02" },
+  { id: "ai-commerce-03", src: "/work/ai-commerce/ai-commerce-03.png", title: "AI赋能电商 03" },
+  { id: "ai-commerce-05", src: "/work/ai-commerce/ai-commerce-05.png", title: "AI赋能电商 05" },
+  { id: "ai-commerce-07", src: "/work/ai-commerce/ai-commerce-07.jpg", title: "AI赋能电商 07" },
+  { id: "ai-commerce-08", src: "/work/ai-commerce/ai-commerce-08.jpg", title: "AI赋能电商 08" },
+  { id: "ai-commerce-09", src: "/work/ai-commerce/ai-commerce-09.jpg", title: "AI赋能电商 09" },
+  { id: "ai-commerce-11", src: "/work/ai-commerce/ai-commerce-11.jpg", title: "AI赋能电商 11" },
+  { id: "ai-commerce-12", src: "/work/ai-commerce/ai-commerce-12.jpg", title: "AI赋能电商 12" },
+  { id: "ai-commerce-13", src: "/work/ai-commerce/ai-commerce-13.jpg", title: "AI赋能电商 13" },
+];
+
+const threeDRenderingImages = [
+  { id: "rendering-01", src: "/work/3d-rendering/rendering-01.jpg", title: "三维渲染 01" },
+  { id: "rendering-02", src: "/work/3d-rendering/rendering-02.jpg", title: "三维渲染 02" },
+  { id: "rendering-03", src: "/work/3d-rendering/rendering-03.jpg", title: "三维渲染 03" },
+  { id: "rendering-04", src: "/work/3d-rendering/rendering-04.jpg", title: "三维渲染 04" },
+  { id: "rendering-05", src: "/work/3d-rendering/rendering-05.jpg", title: "三维渲染 05" },
+  { id: "rendering-06", src: "/work/3d-rendering/rendering-06.jpg", title: "三维渲染 06" },
+  { id: "rendering-07", src: "/work/3d-rendering/rendering-07.jpg", title: "三维渲染 07" },
+  { id: "rendering-08", src: "/work/3d-rendering/rendering-08.jpg", title: "三维渲染 08" },
+  { id: "rendering-09", src: "/work/3d-rendering/rendering-09.jpg", title: "三维渲染 09" },
+  { id: "rendering-10", src: "/work/3d-rendering/rendering-10.jpg", title: "三维渲染 10" },
+  { id: "rendering-11", src: "/work/3d-rendering/rendering-11.png", title: "三维渲染 11" },
+  { id: "rendering-12", src: "/work/3d-rendering/rendering-12.jpg", title: "三维渲染 12" },
+  { id: "rendering-13", src: "/work/3d-rendering/rendering-13.jpg", title: "三维渲染 13" },
+  { id: "rendering-14", src: "/work/3d-rendering/rendering-14.jpg", title: "三维渲染 14" },
+  { id: "rendering-15", src: "/work/3d-rendering/rendering-15.jpg", title: "三维渲染 15" },
+  { id: "rendering-16", src: "/work/3d-rendering/rendering-16.jpg", title: "三维渲染 16" },
+  { id: "rendering-17", src: "/work/3d-rendering/rendering-17.jpg", title: "三维渲染 17" },
+  { id: "rendering-18", src: "/work/3d-rendering/rendering-18.jpg", title: "三维渲染 18" },
+  { id: "rendering-19", src: "/work/3d-rendering/rendering-19.jpg", title: "三维渲染 19" },
+  { id: "rendering-20", src: "/work/3d-rendering/rendering-20.jpg", title: "三维渲染 20" },
+];
+
+const productPosterOrder = [1, 2, 3, 4, 10, 5, 6, 7, 8, 9];
+
+const productPosterImages = [
+  ...productPosterOrder.map((posterNumber, index) => {
+    const number = String(posterNumber).padStart(2, "0");
+    return {
+      id: `product-poster-${number}-${index + 1}`,
+      src: `/work/product-posters/poster-${number}.jpg`,
+      title: `产品海报 ${number}`,
+      wide: [1, 5, 6, 7, 8, 9].includes(posterNumber),
+    };
+  }),
+];
+
+const aiVideoItems = [
+  { id: "ai-video-01", src: "/work/ai-video/video-01.mp4", title: "擦窗机器人视频" },
+  { id: "ai-video-02", src: "/work/ai-video/video-02.mp4", title: "AI视频 02" },
+  { id: "ai-video-03", src: "/work/ai-video/video-03.mp4", title: "AI视频 03" },
+  { id: "ai-video-04", src: "/work/ai-video/video-04.mp4", title: "AI视频 04" },
+];
+
+const campaignHomepageImages = [
+  { id: "campaign-homepage-01", src: "/work/campaign-homepage-design/campaign-01.jpg", title: "双12活动页 01" },
+  { id: "campaign-homepage-02", src: "/work/campaign-homepage-design/campaign-02.jpg", title: "双12活动页 02" },
+];
+
+const campaignHomepageTopImages = [
+  { id: "campaign-homepage-top-01", src: "/work/campaign-homepage-design/homepage-top-01.jpg", title: "首页设计 01" },
+  { id: "campaign-homepage-top-02", src: "/work/campaign-homepage-design/homepage-top-02.jpg", title: "首页设计 02" },
+  { id: "campaign-homepage-top-03", src: "/work/campaign-homepage-design/homepage-top-03.jpg", title: "首页设计 03" },
+  { id: "campaign-homepage-top-04", src: "/work/campaign-homepage-design/homepage-top-04.jpg", title: "首页设计 04" },
+];
+
+const offlinePackagingImages = [
+  { id: "offline-packaging-01", src: "/work/offline-packaging/packaging-01.jpg", title: "线下包装 01", tall: true },
+  { id: "offline-packaging-02", src: "/work/offline-packaging/packaging-02.jpg", title: "线下包装 02" },
+  { id: "offline-packaging-03", src: "/work/offline-packaging/packaging-03.jpg", title: "线下包装 03" },
+  { id: "offline-packaging-04", src: "/work/offline-packaging/packaging-04.jpg", title: "线下包装 04" },
+  { id: "offline-packaging-05", src: "/work/offline-packaging/packaging-05.jpg", title: "线下包装 05" },
+];
+
+const detailPageImages = [
+  { id: "detail-page-01", src: "/work/detail-page-design/detail-page-01.jpg", title: "充电器详情页 01" },
+  { id: "detail-page-02", src: "/work/detail-page-design/detail-page-02.jpg", title: "充电器详情页 02" },
+];
+
+const windowCleanerDetailImages = [
+  { id: "window-cleaner-detail-01", src: "/work/detail-page-design/window-cleaner-01.jpg", title: "擦窗机器人详情页 01" },
+  { id: "window-cleaner-detail-02", src: "/work/detail-page-design/window-cleaner-02.jpg", title: "擦窗机器人详情页 02" },
+  { id: "window-cleaner-detail-03", src: "/work/detail-page-design/window-cleaner-03.gif", title: "擦窗机器人详情页 03" },
+  { id: "window-cleaner-detail-04", src: "/work/detail-page-design/window-cleaner-04.gif", title: "擦窗机器人详情页 04" },
+];
+
+const cameraBatteryDetailImages = [
+  { id: "camera-battery-detail-01", src: "/work/detail-page-design/camera-battery-01.jpg", title: "相机电池详情页 01" },
+  { id: "camera-battery-detail-02", src: "/work/detail-page-design/camera-battery-02.jpg", title: "相机电池详情页 02" },
+  { id: "camera-battery-detail-03", src: "/work/detail-page-design/camera-battery-03.jpg", title: "相机电池详情页 03" },
+  { id: "camera-battery-detail-04", src: "/work/detail-page-design/camera-battery-04.jpg", title: "相机电池详情页 04" },
+];
+
+const powerBankDetailImages = [
+  { id: "power-bank-detail-01", src: "/work/detail-page-design/power-bank-01.jpg", title: "充电宝详情页 01" },
+  { id: "power-bank-detail-02", src: "/work/detail-page-design/power-bank-02.jpg", title: "充电宝详情页 02" },
+];
+
+const dockDetailImages = [
+  { id: "dock-detail-01", src: "/work/detail-page-design/dock-01.jpg", title: "扩展坞详情页 01" },
+  { id: "dock-detail-02", src: "/work/detail-page-design/dock-02.jpg", title: "扩展坞详情页 02" },
+];
+
+const maternalDetailImages = [
+  { id: "maternal-detail-01", src: "/work/detail-page-design/maternal-01.jpg", title: "母婴产品详情页 01" },
+  { id: "maternal-detail-02", src: "/work/detail-page-design/maternal-02.jpg", title: "母婴产品详情页 02" },
+];
+
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return <span aria-hidden="true">{diagonal ? "↗" : "→"}</span>;
 }
@@ -72,15 +252,8 @@ export default function Portfolio() {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeService, setActiveService] = useState(0);
   const [activeSubService, setActiveSubService] = useState<string | null>(mainImageSubNavigation[0]);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
+  const [activeDetailSubService, setActiveDetailSubService] = useState<string | null>(detailPageSubNavigation[0]);
   useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) videoRef.current?.pause();
-  }, []);
-
-  useEffect(() => {
-    if (activeService !== 0) return;
     const sections = mainImageSubNavigation
       .map((item) => document.getElementById(subServiceIds[item]))
       .filter((section): section is HTMLElement => Boolean(section));
@@ -98,16 +271,53 @@ export default function Portfolio() {
     );
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
-  }, [activeService]);
+  }, []);
+
+  useEffect(() => {
+    const sections = detailPageSubNavigation
+      .map((item) => document.getElementById(detailPageSubServiceIds[item]))
+      .filter((section): section is HTMLElement => Boolean(section));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) {
+          const item = detailPageSubNavigation.find((name) => detailPageSubServiceIds[name] === visible.target.id);
+          if (item) setActiveDetailSubService(item);
+        }
+      },
+      { rootMargin: "-18% 0px -58% 0px", threshold: [0, .15, .35] },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const sections = serviceSectionIds
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        const index = Number((visible.target as HTMLElement).dataset.serviceIndex);
+        if (Number.isInteger(index)) setActiveService(index);
+      },
+      { rootMargin: "-20% 0px -62% 0px", threshold: [0, .08, .2] },
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
 
   const closeMenu = () => setMenuOpen(false);
 
   const navigateToService = (index: number) => {
     setActiveService(index);
-    setActiveSubService(index === 0 ? (activeSubService ?? mainImageSubNavigation[0]) : null);
     setMenuOpen(false);
-    const targetId = index === 0 ? subServiceIds[activeSubService ?? mainImageSubNavigation[0]] : "work";
-    document.getElementById(targetId)?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(serviceSectionIds[index])?.scrollIntoView({ behavior: "smooth" });
   };
 
   const navigateToSubService = (item: string) => {
@@ -115,6 +325,13 @@ export default function Portfolio() {
     setActiveSubService(item);
     setMenuOpen(false);
     document.getElementById(subServiceIds[item])?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const navigateToDetailSubService = (item: string) => {
+    setActiveService(8);
+    setActiveDetailSubService(item);
+    setMenuOpen(false);
+    document.getElementById(detailPageSubServiceIds[item])?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -154,9 +371,25 @@ export default function Portfolio() {
                   {mainImageSubNavigation.map((subItem) => (
                     <button
                       type="button"
-                      className={activeSubService === subItem ? "is-active" : ""}
-                      aria-current={activeSubService === subItem ? "page" : undefined}
+                      className={activeService === 0 && activeSubService === subItem ? "is-active" : ""}
+                      aria-current={activeService === 0 && activeSubService === subItem ? "page" : undefined}
                       onClick={() => navigateToSubService(subItem)}
+                      key={subItem}
+                    >
+                      <span aria-hidden="true" />
+                      {subItem}
+                    </button>
+                  ))}
+                </div>
+              )}
+              {index === 8 && (
+                <div className="service-subnav" aria-label="详情页设计分类">
+                  {detailPageSubNavigation.map((subItem) => (
+                    <button
+                      type="button"
+                      className={activeService === 8 && activeDetailSubService === subItem ? "is-active" : ""}
+                      aria-current={activeService === 8 && activeDetailSubService === subItem ? "page" : undefined}
+                      onClick={() => navigateToDetailSubService(subItem)}
                       key={subItem}
                     >
                       <span aria-hidden="true" />
@@ -170,7 +403,7 @@ export default function Portfolio() {
         </nav>
         <div className="side-nav-footer">
           <p>AVAILABLE FOR PROJECTS</p>
-          <a href={`mailto:${profile.email}`} title={sidebarCollapsed ? "联系我" : undefined}>
+          <a href="#about" onClick={closeMenu} title={sidebarCollapsed ? "联系我" : undefined}>
             <span className="availability-dot" />
             <span className="side-contact-text">联系我</span>
             <span aria-hidden="true">↗</span>
@@ -191,19 +424,6 @@ export default function Portfolio() {
 
       <main className="portfolio-main">
       <section className="hero" id="top">
-        <video
-          ref={videoRef}
-          className="hero-video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          poster={artwork}
-          aria-hidden="true"
-        >
-          <source src="/media/hero-showreel.mp4" type="video/mp4" />
-        </video>
         <div className="hero-image" aria-hidden="true" />
         <div className="hero-color-zones" aria-hidden="true" />
         <div className="hero-shade" />
@@ -333,112 +553,241 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section className={`work section ${activeService === 0 ? "work-tinted-dark" : ""}`} id="work">
+      <section className="work section work-tinted-dark" id="work">
         <div className="shell">
-          <div className="section-kicker light">
-            <span>02</span>
-            <p>SELECTED WORK / {serviceNavigation[activeService]}</p>
-          </div>
-          {activeService === 0 ? (
-            <>
-              <div className="work-subsection work-subsection-first" id="work-battery">
-                <div className="battery-gallery">
-                  {batteryMainImages.map((image, index) => (
-                    <figure className="battery-gallery-item" key={image.id}>
-                      <img src={image.src} alt={image.title} loading={index < 6 ? "eager" : "lazy"} />
-                    </figure>
-                  ))}
-                </div>
-                <div className="battery-feature-row">
-                  {batteryFeatureImages.map((image) => (
-                    <figure className="battery-feature-item" key={image.id}>
-                      <img src={image.src} alt={image.title} loading="lazy" />
-                    </figure>
-                  ))}
-                </div>
-              </div>
+          <div className="work-service-section" id="work-main-images" data-service-index="0">
+            <div className="section-kicker light">
+              <span>02</span>
+              <p>SELECTED WORK / 主图设计</p>
+            </div>
 
-              <div className="work-subsection" id="work-fast-3c">
-                <div className="battery-gallery fast-3c-gallery">
-                  {fastMoving3cImages.map((image, index) => (
-                    <figure className="battery-gallery-item" key={image.id}>
-                      <img src={image.src} alt={image.title} loading={index < 4 ? "eager" : "lazy"} />
-                    </figure>
-                  ))}
-                </div>
-              </div>
-
-              <div className="work-subsection" id="work-cleaning">
-                <div className="battery-gallery cleaning-gallery">
-                  {cleaningRobotImages.map((image, index) => (
-                    <figure className="battery-gallery-item" key={image.id}>
-                      <img src={image.src} alt={image.title} loading={index < 4 ? "eager" : "lazy"} />
-                    </figure>
-                  ))}
-                </div>
-              </div>
-
-              <div className="work-subsection work-subsection-empty" id="work-maternal" />
-            </>
-          ) : (
-            <>
-              <div className="work-heading">
-                <h2>以视觉，定义<br />独特的品牌感知。</h2>
-                <p>涵盖 AIGC、三维视觉、品牌与产品设计的部分实验性作品。</p>
-              </div>
-              <div className="project-grid">
-                {projects.map((project, index) => (
-                  <article className={`project-card project-${index + 1}`} key={project.id}>
-                    <a href={`#${project.id}`} aria-label={`查看项目：${project.title}`}>
-                      <div
-                        className="project-image"
-                        style={{ backgroundImage: `url(${artwork})`, backgroundPosition: project.imagePosition }}
-                      >
-                        <span className="project-index">/{project.index}</span>
-                        <span className="project-open"><Arrow diagonal /></span>
-                      </div>
-                      <div className="project-meta">
-                        <div>
-                          <h3>{project.title}</h3>
-                          <p>{project.englishTitle}</p>
-                        </div>
-                        <div className="project-meta-right">
-                          <p>{project.category}</p>
-                          <p>{project.year}</p>
-                        </div>
-                      </div>
-                    </a>
-                  </article>
+            <div className="work-subsection work-subsection-first" id="work-battery">
+              <div className="battery-gallery">
+                {batteryMainImages.map((image) => (
+                  <figure className="battery-gallery-item" key={image.id}>
+                    <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                  </figure>
                 ))}
               </div>
-            </>
-          )}
-        </div>
-      </section>
+              <div className="battery-feature-row">
+                {batteryFeatureImages.map((image) => (
+                  <figure className="battery-feature-item" key={image.id}>
+                    <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                  </figure>
+                ))}
+              </div>
+            </div>
 
-      <section className="strengths section" id="strengths">
-        <div className="shell">
-          <div className="section-kicker">
-            <span>03</span>
-            <p>CAPABILITIES / 个人优势</p>
+            <div className="work-subsection" id="work-fast-3c">
+              <div className="battery-gallery fast-3c-gallery">
+                {fastMoving3cImages.map((image) => (
+                  <figure className="battery-gallery-item" key={image.id}>
+                    <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                  </figure>
+                ))}
+              </div>
+            </div>
+
+            <div className="work-subsection" id="work-cables-powerbanks">
+              <div className="battery-gallery cables-powerbanks-gallery">
+                {cablePowerbankImages.map((image) => (
+                  <figure className="battery-gallery-item" key={image.id}>
+                    <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                  </figure>
+                ))}
+              </div>
+            </div>
+
+            <div className="work-subsection" id="work-cleaning">
+              <div className="battery-gallery cleaning-gallery">
+                {cleaningRobotImages.map((image) => (
+                  <figure className="battery-gallery-item" key={image.id}>
+                    <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                  </figure>
+                ))}
+              </div>
+            </div>
+
+            <div className="work-subsection" id="work-maternal">
+              <div className="battery-gallery maternal-gallery">
+                {maternalProductImages.map((image) => (
+                  <figure className="battery-gallery-item" key={image.id}>
+                    <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                  </figure>
+                ))}
+              </div>
+            </div>
           </div>
-          <div className="strength-heading">
-            <h2>策略与审美并行，<br />技术为创意服务。</h2>
-            <p>从概念到最终呈现，我关注的不只是单张视觉，而是完整体验如何形成。</p>
+
+          <div className="work-service-section" id="work-product-modeling" data-service-index="1">
+            <div className="section-kicker light">
+              <span>02</span>
+              <p>SELECTED WORK / 产品建模</p>
+            </div>
+            <div className="battery-gallery product-modeling-gallery">
+              {productModelingImages.map((image) => (
+                <figure className="battery-gallery-item" key={image.id}>
+                  <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                </figure>
+              ))}
+            </div>
           </div>
-          <div className="strength-grid">
-            {strengths.map((item) => (
-              <article className="strength-card" key={item.no}>
-                <span className="strength-no">/{item.no}</span>
-                <div className="strength-symbol" aria-hidden="true"><span /></div>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p className="strength-en">{item.en}</p>
-                  <p className="strength-desc">{item.description}</p>
+
+          {serviceNavigation.slice(2).map((service, index) => {
+            const serviceIndex = index + 2;
+            return (
+              <div
+                className="work-service-section work-service-pending"
+                id={serviceSectionIds[serviceIndex]}
+                data-service-index={serviceIndex}
+                key={service}
+              >
+                <div className="section-kicker light">
+                  <span>{String(serviceIndex + 1).padStart(2, "0")}</span>
+                  <p>SELECTED WORK / {service}</p>
                 </div>
-              </article>
-            ))}
-          </div>
+                {serviceIndex === 2 ? (
+                  <div className="battery-gallery ai-commerce-gallery">
+                    {aiCommerceImages.map((image) => (
+                      <figure className="battery-gallery-item" key={image.id}>
+                        <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                      </figure>
+                    ))}
+                  </div>
+                ) : serviceIndex === 3 ? (
+                  <div className="rendering-gallery">
+                    {threeDRenderingImages.map((image) => (
+                      <figure className="battery-gallery-item" key={image.id}>
+                        <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                      </figure>
+                    ))}
+                  </div>
+                ) : serviceIndex === 4 ? (
+                  <div className="product-poster-gallery">
+                    {productPosterImages.map((image) => (
+                      <figure
+                        className={`battery-gallery-item${image.wide ? " product-poster-wide" : ""}`}
+                        key={image.id}
+                      >
+                        <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                      </figure>
+                    ))}
+                  </div>
+                ) : serviceIndex === 5 ? (
+                  <div className="ai-video-gallery">
+                    {aiVideoItems.map((video) => (
+                      <figure className="ai-video-card" key={video.id}>
+                        <video controls preload="metadata" playsInline>
+                          <source src={video.src} type="video/mp4" />
+                        </video>
+                      </figure>
+                    ))}
+                  </div>
+                ) : serviceIndex === 6 ? (
+                  <div className="campaign-homepage-stack">
+                    <div className="campaign-homepage-top-row">
+                      {campaignHomepageTopImages.map((image) => (
+                        <figure className="battery-gallery-item" key={image.id}>
+                          <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                        </figure>
+                      ))}
+                    </div>
+                    <div className="campaign-homepage-gallery">
+                      {campaignHomepageImages.map((image) => (
+                        <figure className="battery-gallery-item" key={image.id}>
+                          <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                        </figure>
+                      ))}
+                    </div>
+                  </div>
+                ) : serviceIndex === 7 ? (
+                  <div className="offline-packaging-gallery">
+                    {offlinePackagingImages.map((image) => (
+                      <figure
+                        className={`battery-gallery-item${image.tall ? " offline-packaging-tall" : ""}`}
+                        key={image.id}
+                      >
+                        <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                      </figure>
+                    ))}
+                  </div>
+                ) : serviceIndex === 8 ? (
+                  <div className="detail-page-sections">
+                    {detailPageSubNavigation.map((subItem, subIndex) => (
+                      <section
+                        className="detail-page-subsection"
+                        id={detailPageSubServiceIds[subItem]}
+                        key={subItem}
+                      >
+                        <div className="detail-page-subsection-heading">
+                          <span>{String(subIndex + 1).padStart(2, "0")}</span>
+                          <h3>{subItem}</h3>
+                        </div>
+                        {subItem === "充电头" ? (
+                          <div className="detail-page-gallery">
+                            {detailPageImages.map((image) => (
+                              <figure className="battery-gallery-item" key={image.id}>
+                                <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                              </figure>
+                            ))}
+                          </div>
+                        ) : subItem === "擦窗机器人" ? (
+                          <div className="detail-page-gallery">
+                            {windowCleanerDetailImages.map((image) => (
+                              <figure className="battery-gallery-item" key={image.id}>
+                                <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                              </figure>
+                            ))}
+                          </div>
+                        ) : subItem === "相机电池" ? (
+                          <div className="detail-page-gallery">
+                            {cameraBatteryDetailImages.map((image) => (
+                              <figure className="battery-gallery-item" key={image.id}>
+                                <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                              </figure>
+                            ))}
+                          </div>
+                        ) : subItem === "充电宝" ? (
+                          <div className="detail-page-gallery">
+                            {powerBankDetailImages.map((image) => (
+                              <figure className="battery-gallery-item" key={image.id}>
+                                <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                              </figure>
+                            ))}
+                          </div>
+                        ) : subItem === "扩展坞" ? (
+                          <div className="detail-page-gallery">
+                            {dockDetailImages.map((image) => (
+                              <figure className="battery-gallery-item" key={image.id}>
+                                <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                              </figure>
+                            ))}
+                          </div>
+                        ) : subItem === "母婴产品" ? (
+                          <div className="detail-page-gallery">
+                            {maternalDetailImages.map((image) => (
+                              <figure className="battery-gallery-item" key={image.id}>
+                                <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                              </figure>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="detail-page-empty">
+                            <p>{subItem}详情页作品待补充。</p>
+                          </div>
+                        )}
+                      </section>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="work-category-placeholder">
+                    <h2>{service}</h2>
+                    <p>该分类作品将在此处连续展示。</p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -453,9 +802,9 @@ export default function Portfolio() {
           <div className="footer-row">
             <p>© 2026 {profile.name}. ALL RIGHTS RESERVED.</p>
             <div>
-              <a href="#" aria-label="Behance">BEHANCE</a>
-              <a href="#" aria-label="小红书">REDNOTE</a>
-              <a href="#" aria-label="Instagram">INSTAGRAM</a>
+              <span>BEHANCE</span>
+              <span>REDNOTE</span>
+              <span>INSTAGRAM</span>
             </div>
             <a href="#top">BACK TO TOP ↑</a>
           </div>
