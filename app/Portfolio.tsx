@@ -39,7 +39,7 @@ const subServiceIds: Record<string, string> = {
   "母婴产品": "work-maternal",
 };
 
-const detailPageSubNavigation = ["充电头", "擦窗机器人", "相机电池", "充电宝", "扩展坞", "母婴产品"];
+const detailPageSubNavigation = ["充电头", "擦窗机器人", "相机电池", "充电宝", "扩展坞", "母婴产品", "耳机"];
 const detailPageSubServiceIds: Record<string, string> = {
   "充电头": "work-detail-charger",
   "擦窗机器人": "work-detail-window-cleaner",
@@ -47,6 +47,7 @@ const detailPageSubServiceIds: Record<string, string> = {
   "充电宝": "work-detail-power-bank",
   "扩展坞": "work-detail-dock",
   "母婴产品": "work-detail-maternal",
+  "耳机": "work-detail-headphones",
 };
 
 const batteryMainImages = Array.from({ length: 13 }, (_, index) => {
@@ -207,6 +208,8 @@ const offlinePackagingImages = [
   { id: "offline-packaging-03", src: "/work/offline-packaging/packaging-03.jpg", title: "线下包装 03" },
   { id: "offline-packaging-04", src: "/work/offline-packaging/packaging-04.jpg", title: "线下包装 04" },
   { id: "offline-packaging-05", src: "/work/offline-packaging/packaging-05.jpg", title: "线下包装 05" },
+  { id: "offline-packaging-06", src: "/work/offline-packaging/packaging-06.jpg", title: "线下包装 06" },
+  { id: "offline-packaging-07", src: "/work/offline-packaging/packaging-07.jpg", title: "线下包装 07" },
 ];
 
 const detailPageImages = [
@@ -224,8 +227,8 @@ const windowCleanerDetailImages = [
 const cameraBatteryDetailImages = [
   { id: "camera-battery-detail-01", src: "/work/detail-page-design/camera-battery-01.jpg", title: "相机电池详情页 01" },
   { id: "camera-battery-detail-02", src: "/work/detail-page-design/camera-battery-02.jpg", title: "相机电池详情页 02" },
-  { id: "camera-battery-detail-03", src: "/work/detail-page-design/camera-battery-03.jpg", title: "相机电池详情页 03" },
-  { id: "camera-battery-detail-04", src: "/work/detail-page-design/camera-battery-04.jpg", title: "相机电池详情页 04" },
+  { id: "camera-battery-detail-05", src: "/work/detail-page-design/camera-battery-05.jpg", title: "相机电池详情页 05" },
+  { id: "camera-battery-detail-06", src: "/work/detail-page-design/camera-battery-06.jpg", title: "相机电池详情页 06" },
 ];
 
 const powerBankDetailImages = [
@@ -241,6 +244,11 @@ const dockDetailImages = [
 const maternalDetailImages = [
   { id: "maternal-detail-01", src: "/work/detail-page-design/maternal-01.jpg", title: "母婴产品详情页 01" },
   { id: "maternal-detail-02", src: "/work/detail-page-design/maternal-02.jpg", title: "母婴产品详情页 02" },
+];
+
+const headphonesDetailImages = [
+  { id: "headphones-detail-01", src: "/work/detail-page-design/headphones-01.jpg", title: "耳机详情页 01" },
+  { id: "headphones-detail-02", src: "/work/detail-page-design/headphones-02.jpg", title: "耳机详情页 02" },
 ];
 
 function Arrow({ diagonal = false }: { diagonal?: boolean }) {
@@ -766,6 +774,14 @@ export default function Portfolio() {
                         ) : subItem === "母婴产品" ? (
                           <div className="detail-page-gallery">
                             {maternalDetailImages.map((image) => (
+                              <figure className="battery-gallery-item" key={image.id}>
+                                <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                              </figure>
+                            ))}
+                          </div>
+                        ) : subItem === "耳机" ? (
+                          <div className="detail-page-gallery">
+                            {headphonesDetailImages.map((image) => (
                               <figure className="battery-gallery-item" key={image.id}>
                                 <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
                               </figure>
