@@ -963,7 +963,7 @@ button { color: inherit; font: inherit; }
 }
 .offline-packaging-gallery {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(12, minmax(0, 1fr));
   gap: 18px;
   align-items: start;
 }
@@ -981,6 +981,16 @@ button { color: inherit; font: inherit; }
   object-fit: contain;
   background: transparent;
 }
+.offline-packaging-gallery .battery-gallery-item:nth-child(1) { grid-column: span 5; }
+.offline-packaging-gallery .battery-gallery-item:nth-child(2) { grid-column: span 7; }
+.offline-packaging-gallery .battery-gallery-item:nth-child(3),
+.offline-packaging-gallery .battery-gallery-item:nth-child(4) { grid-column: 1 / -1; }
+.offline-packaging-gallery .battery-gallery-item:nth-child(5) {
+  grid-column: 3 / span 8;
+  justify-self: center;
+}
+.offline-packaging-gallery .battery-gallery-item:nth-child(6),
+.offline-packaging-gallery .battery-gallery-item:nth-child(7) { grid-column: span 6; }
 .homepage-design-gallery {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1223,6 +1233,7 @@ button { color: inherit; font: inherit; }
   .ai-video-card:first-child { grid-column: auto; }
   .ai-video-card:nth-child(2) { grid-column: auto; }
   .offline-packaging-gallery { grid-template-columns: 1fr; gap: 14px; }
+  .offline-packaging-gallery .battery-gallery-item:nth-child(n) { grid-column: auto; justify-self: auto; }
   .offline-packaging-gallery .battery-gallery-item img { max-height: none; }
   .homepage-design-gallery { grid-template-columns: 1fr; gap: 14px; }
   .homepage-design-gif-gallery {
