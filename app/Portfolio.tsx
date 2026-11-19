@@ -30,13 +30,14 @@ const serviceSectionIds = [
   "work-detail-page-design",
 ];
 
-const mainImageSubNavigation = ["电池", "排插", "数据线与充电宝", "清洁机器", "母婴产品"];
+const mainImageSubNavigation = ["电池", "排插", "数据线与充电宝", "清洁机器", "母婴产品", "家具产品"];
 const subServiceIds: Record<string, string> = {
   "电池": "work-battery",
   "排插": "work-fast-3c",
   "数据线与充电宝": "work-cables-powerbanks",
   "清洁机器": "work-cleaning",
   "母婴产品": "work-maternal",
+  "家具产品": "work-furniture",
 };
 
 const detailPageSubNavigation = ["充电头", "擦窗机器人", "相机电池", "充电宝", "扩展坞", "母婴产品", "耳机"];
@@ -118,6 +119,24 @@ const maternalProductImages = [
   { id: "maternal-12", src: "/work/main-images/maternal/maternal-12.jpg", title: "母婴产品英文主图 03" },
 ];
 
+const furnitureProductImages = [
+  { id: "furniture-sofa-01", src: "/work/main-images/furniture/sofa-01.webp", title: "绿色组合沙发场景图 01" },
+  { id: "furniture-sofa-02", src: "/work/main-images/furniture/sofa-02.webp", title: "绿色组合沙发场景图 02" },
+  { id: "furniture-sofa-03", src: "/work/main-images/furniture/sofa-03.webp", title: "绿色组合沙发场景图 03" },
+  { id: "furniture-walnut-01", src: "/work/main-images/furniture/walnut-01.webp", title: "黑胡桃木家具场景图 01" },
+  { id: "furniture-walnut-02", src: "/work/main-images/furniture/walnut-02.webp", title: "黑胡桃木家具场景图 02" },
+  { id: "furniture-walnut-03", src: "/work/main-images/furniture/walnut-03.webp", title: "黑胡桃木家具场景图 03" },
+  { id: "furniture-cabinet-01", src: "/work/main-images/furniture/cabinet-01.webp", title: "浅木色组合柜场景图 01" },
+  { id: "furniture-cabinet-02", src: "/work/main-images/furniture/cabinet-02.webp", title: "浅木色组合柜场景图 02" },
+  { id: "furniture-cabinet-03", src: "/work/main-images/furniture/cabinet-03.webp", title: "浅木色组合柜场景图 03" },
+  { id: "furniture-black-cabinet-01", src: "/work/main-images/furniture/black-cabinet-01.webp", title: "黑色餐边柜场景图 01" },
+  { id: "furniture-black-cabinet-02", src: "/work/main-images/furniture/black-cabinet-02.webp", title: "黑色餐边柜场景图 02" },
+  { id: "furniture-black-cabinet-03", src: "/work/main-images/furniture/black-cabinet-03.webp", title: "黑色餐边柜场景图 03" },
+  { id: "furniture-black-display-01", src: "/work/main-images/furniture/black-display-01.webp", title: "黑色灯光展示柜场景图 01" },
+  { id: "furniture-black-display-02", src: "/work/main-images/furniture/black-display-02.webp", title: "黑色灯光展示柜场景图 02" },
+  { id: "furniture-black-display-03", src: "/work/main-images/furniture/black-display-03.webp", title: "黑色灯光展示柜场景图 03" },
+];
+
 const productModelingImages = [
   { id: "modeling-01", src: "/work/product-modeling/modeling-01.jpg", title: "Product modeling render 01" },
   { id: "modeling-02", src: "/work/product-modeling/modeling-02.jpg", title: "Product modeling wireframe 01" },
@@ -188,6 +207,8 @@ const aiVideoItems = [
   { id: "ai-video-02", src: "/work/ai-video/video-02.mp4", title: "AI视频 02" },
   { id: "ai-video-03", src: "/work/ai-video/video-03.mp4", title: "AI视频 03" },
   { id: "ai-video-04", src: "/work/ai-video/video-04.mp4", title: "AI视频 04" },
+  { id: "ai-video-05", src: "/work/ai-video/video-05.mp4", title: "带 Logo 产品视频" },
+  { id: "ai-video-06", src: "/work/ai-video/video-06.mp4", title: "柜子产品视频" },
 ];
 
 const campaignHomepageImages = [
@@ -547,11 +568,13 @@ export default function Portfolio() {
                   <div className="experience-content">
                     <div className="experience-title">
                       <h3>{experience.company}</h3>
-                      <p>{experience.role}</p>
+                      {experience.role && <p>{experience.role}</p>}
                     </div>
-                    <ul>
-                      {experience.details.map((detail) => <li key={detail}>{detail}</li>)}
-                    </ul>
+                    {experience.details.length > 0 && (
+                      <ul>
+                        {experience.details.map((detail) => <li key={detail}>{detail}</li>)}
+                      </ul>
+                    )}
                   </div>
                 </article>
               ))}
@@ -621,6 +644,16 @@ export default function Portfolio() {
                 {maternalProductImages.map((image) => (
                   <figure className="battery-gallery-item" key={image.id}>
                     <img src={optimizedWorkImage(image.src)} alt={image.title} loading="lazy" decoding="async" />
+                  </figure>
+                ))}
+              </div>
+            </div>
+
+            <div className="work-subsection" id="work-furniture">
+              <div className="battery-gallery furniture-gallery">
+                {furnitureProductImages.map((image) => (
+                  <figure className="battery-gallery-item" key={image.id}>
+                    <img src={image.src} alt={image.title} loading="lazy" decoding="async" />
                   </figure>
                 ))}
               </div>

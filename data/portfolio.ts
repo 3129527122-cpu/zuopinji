@@ -14,7 +14,7 @@ export const profile = {
   name: "谢华林",
   role: "AI 设计师 / 三维设计师 / 视觉设计师 / 电商美工",
   intro:
-    "拥有三年电商设计工作经验，专注于 3C 与母婴类产品的建模、渲染和电商视觉设计，并将 AIGC 融入视频创作、场景生成与后期制作流程。",
+    "拥有三年电商设计工作经验，专注于 3C 、家具与母婴类产品的建模、渲染与电商视觉设计，并将 AIGC 融入视频创作、场景生成与后期制作流程，同时会产品的组装动画和三维视频渲染。",
   email: "hello@yourname.design",
   location: "深圳 · 宝安",
   age: "25 岁",
@@ -43,13 +43,26 @@ export const aboutHighlights = [
 
 export const experiences = [
   {
-    period: "2026.05 — 2026.08",
+    period: "2026.08.25 — 2026.11",
+    company: "艾姆帆科技有限公司",
+    role: "电商视觉设计",
+    details: [
+      "负责 AMAZON、Wayfair 等多平台家具类目图片设计。",
+      "负责大件木质家具、沙发的图片设计。",
+      "用即梦模型制作家具视频。",
+      "用 Lovart 平台进行团队协作，AI 创作制作图片场景使用图。",
+      "从 3C 类目转到新家具类目，在效率上未能跟上公司而辞退。",
+    ],
+  },
+  {
+    period: "2026.04 — 2026.08",
     company: "乾程智能科技有限公司",
     role: "电商视觉设计",
     details: [
       "负责 Amazon、TikTok 等渠道的电商视觉设计。",
       "完成擦窗机器人主副图、A+ 页面、画册、彩盒、产品日常使用视频、AI 视频及外包装设计。",
       "建立成熟的 AI 辅助作图流程，协同使用 ChatGPT、Codex、即梦、Nano Banana、LiblibAI、Photoshop、Cinema 4D、Illustrator 与 Rhino。",
+      "在部门只有一个设计，因新平台设计多方审批，修改意见不统一，自己提出离职。",
     ],
   },
   {
@@ -95,7 +108,7 @@ export const skillTools: SkillTool[] = [
 
 export const stats = [
   { value: "03+", label: "YEARS EXPERIENCE", zh: "年电商设计经验" },
-  { value: "03", label: "WORK EXPERIENCES", zh: "段工作经历" },
+  { value: "04", label: "WORK EXPERIENCES", zh: "段工作经历" },
   { value: "08+", label: "CREATIVE TOOLS", zh: "项创作工具" },
 ];
 
