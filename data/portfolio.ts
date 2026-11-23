@@ -55,24 +55,16 @@ export const experiences = [
     ],
   },
   {
-    period: "2026.04 — 2026.08",
-    company: "乾程智能科技有限公司",
-    role: "电商视觉设计",
-    details: [
-      "负责 Amazon、TikTok 等渠道的电商视觉设计。",
-      "完成擦窗机器人主副图、A+ 页面、画册、彩盒、产品日常使用视频、AI 视频及外包装设计。",
-      "建立成熟的 AI 辅助作图流程，协同使用 ChatGPT、Codex、即梦、Nano Banana、LiblibAI、Photoshop、Cinema 4D、Illustrator 与 Rhino。",
-      "在分公司担任设计，试用期通过后，后面因负责总公司任务，因审核人员多，修改意见未统一，自己提出离职。",
-    ],
-  },
-  {
-    period: "2025.03 — 2026.04",
+    period: "2025.05 — 2026.08",
     company: "沣标电子商务公司",
     role: "电商视觉设计",
     details: [
-      "负责 Amazon、印尼电商平台、淘宝、京东及拼多多的店铺页面综合设计。",
-      "负责锂电池、相机电池、充电宝、相机充电器等摄影周边产品的渲染、主图详情排版、包装及说明书设计。",
-      "使用即梦、LiblibAI 与 Nano Banana 辅助灵感提取、场景及模特生成和渲染细节修改，并完成 AI 视频生成与剪辑。",
+      "负责 AMAZON、TIKTOK、印尼和淘宝、京东、多多页面综合设计。",
+      "负责公司产品锂电池、相机电池、充电宝、相机充电器等摄影周边产品的渲染和主图详情排版、产品外包装和说明书设计。",
+      "利用即梦和哩布、谷歌香蕉等主流 AI 软件辅助灵感提取、场景图和模特生成、渲染图细节修改，为公司降本增效。",
+      "用即梦进行 AI 视频的生成，对产品进行 AI 视频生成与剪辑修改。",
+      "负责简单的产品包装动画和三维产品动画展示。",
+      "会使用单反相机做实拍做设计。",
     ],
   },
   {
@@ -83,6 +75,7 @@ export const experiences = [
       "负责淘宝、京东、拼多多及 Amazon 等店铺的页面综合设计。",
       "重点负责产品渲染与产品视觉升级，以提升商品点击率。",
       "使用 Stable Diffusion 与 LiblibAI 完成场景图、模特生成及渲染细节优化，帮助团队提升效率、降低制作成本。",
+      "工作内容为主副图 A+、会展海报、画册和包装设计。",
     ],
   },
 ];
@@ -108,7 +101,7 @@ export const skillTools: SkillTool[] = [
 
 export const stats = [
   { value: "04+", label: "YEARS EXPERIENCE", zh: "年电商设计经验" },
-  { value: "04", label: "WORK EXPERIENCES", zh: "段工作经历" },
+  { value: "03", label: "WORK EXPERIENCES", zh: "段工作经历" },
   { value: "08+", label: "CREATIVE TOOLS", zh: "项创作工具" },
 ];
 
