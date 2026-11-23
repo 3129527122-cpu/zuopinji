@@ -520,7 +520,7 @@ export default function Portfolio() {
                 <div className="about-name-row">
                   <h2>谢华林<span className="blue-dot">.</span></h2>
                   <p className="about-role" aria-label="三年以上电商设计经验">
-                    <strong>3+</strong>
+                    <strong>4+</strong>
                     <span>年电商设计经验</span>
                   </p>
                 </div>

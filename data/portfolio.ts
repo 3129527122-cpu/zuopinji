@@ -14,7 +14,7 @@ export const profile = {
   name: "谢华林",
   role: "AI 设计师 / 三维设计师 / 视觉设计师 / 电商美工",
   intro:
-    "拥有三年电商设计工作经验，专注于 3C 、家具与母婴类产品的建模、渲染与电商视觉设计，并将 AIGC 融入视频创作、场景生成与后期制作流程，同时会产品的组装动画和三维视频渲染。",
+    "拥有4年电商设计工作经验，专注于 3C 、家具与母婴类产品的建模、渲染与电商视觉设计，并将 AIGC 融入视频创作、场景生成与后期制作流程，同时会产品的组装动画和三维视频渲染。",
   email: "hello@yourname.design",
   location: "深圳 · 宝安",
   age: "25 岁",
@@ -107,7 +107,7 @@ export const skillTools: SkillTool[] = [
 ];
 
 export const stats = [
-  { value: "03+", label: "YEARS EXPERIENCE", zh: "年电商设计经验" },
+  { value: "04+", label: "YEARS EXPERIENCE", zh: "年电商设计经验" },
   { value: "04", label: "WORK EXPERIENCES", zh: "段工作经历" },
   { value: "08+", label: "CREATIVE TOOLS", zh: "项创作工具" },
 ];
